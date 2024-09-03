@@ -24,10 +24,12 @@ const Login = (onAuthenticatedCallback: Function) => {
 
 
 const UserName = () => keycloakInstance.tokenParsed?.preferred_username;
+const Token = () => keycloakInstance.idToken;
 
 const KeyCloakService = {
   CallLogin: Login,
   GetUserName: UserName,
+  Token: Token
 };
 
 export default KeyCloakService;

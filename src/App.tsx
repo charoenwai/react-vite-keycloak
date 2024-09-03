@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -6,6 +7,13 @@ import KeyCloakService from './services/KeycloakService'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [product, setProduct] = useState(null);
+
+  const getProduct = async () => {
+    const headers = { 'Authorization': KeyCloakService.Token() };
+    axios.get('https://example.com/getProduct', { headers })
+      .then(response => setProduct(response.data));
+  }
 
   return (
     <>
@@ -26,6 +34,10 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
         <p>{KeyCloakService.GetUserName()}</p>
+        <button onClick={getProduct}>
+          getProduct
+        </button>
+        <p>{product}</p>
       </div>
     </>
   )
